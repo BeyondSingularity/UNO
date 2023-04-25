@@ -37,7 +37,8 @@ if __name__ == "__main__":
             exit()
         player = TerminalInterface(
             threading.Lock(), server=SERVER, port=PORT, name=NICKNAME)
-        print("Waiting for other connections. Type 'start' when all your friends are connected")
+        print("Waiting for other connections. Type 'start' when all your\
+              friends are connected")
         start = input()
         while start != "start":
             start = input()

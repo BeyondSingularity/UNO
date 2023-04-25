@@ -14,7 +14,8 @@ DISCONNECT_MESSAGE = config.get('SYSTEM CONFIG', 'DISCONNECT_MESSAGE')
 
 
 class Client:
-    def __init__(self, deque_lock: threading.Lock, *, conn=None, server=None, port=None, name=''):
+    def __init__(self, deque_lock: threading.Lock, *,
+                 conn=None, server=None, port=None, name=''):
         self.deque_lock = deque_lock
         self.deque = deque()
         if conn:
@@ -38,7 +39,8 @@ class Client:
         try:
             self.conn.send(send_length)
             self.conn.send(message)
-        except BrokenPipeError or ConnectionAbortedError or ConnectionResetError or InterruptedError:
+        except BrokenPipeError or ConnectionAbortedError or \
+               ConnectionResetError or InterruptedError:
             self.send(self, data)
 
     def receive(self):

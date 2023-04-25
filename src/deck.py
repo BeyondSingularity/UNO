@@ -11,12 +11,8 @@ class Deck:
         return len(self.cards)
 
     def pop_card(self, pop_card_id) -> int:
-        try:
-            self.cards.remove(pop_card_id)
-            return pop_card_id
-        except:
-            raise PopCardError(
-                "illegal move: there is no card that you are looking for!")
+        self.cards.remove(pop_card_id)
+        return pop_card_id
 
     def receive_card(self, receive_card_id) -> None:
         self.cards.append(receive_card_id)
