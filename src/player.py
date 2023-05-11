@@ -8,7 +8,6 @@ class Player(Client):
                  conn=None, server=None, port=None, name=''):
         super().__init__(deque_lock,
                          conn=conn, server=server, port=port, name=name)
-        self.id = hash(name)
         self.reinit()
 
     def reinit(self):

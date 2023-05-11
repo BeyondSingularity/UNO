@@ -20,6 +20,7 @@ JUMP_IN = config.getboolean('GAME RULES', 'JUMP_IN')
 FORCE_PLAY = config.getboolean('GAME RULES', 'FORCE_PLAY')
 NO_BLUFFING = config.getboolean('GAME RULES', 'NO_BLUFFING')
 DRAW_TO_MATCH = config.getboolean('GAME RULES', 'DRAW_TO_MATCH')
+STACKING = config.getboolean('GAME RULES', 'STACKING')
 
 
 class Table():
@@ -27,6 +28,7 @@ class Table():
         self.players = players
         self.drawDeck = DrawDeck()
         self.tableDeck = TableDeck()
+        self.stack = 0
         while Card(self.drawDeck.cards[0]).color == 'black':
             self.drawDeck = DrawDeck()
         self.tableDeck.receive_card(self.drawDeck.pop_top())
@@ -206,8 +208,15 @@ class Table():
                 elif card.type == "reverse":
                     self.change_direction()
                 elif card.type == "+2":
+                    self.stack += 2
                     self.turn = self.next_turn()
-                    self.draw(self.turn, 2)
+                    if STACKING:
+                        if not self.players[self.turn].has_2():
+                            self.draw(self.turn, self.stack)
+                            self.stack = 0
+                    else:
+                        self.draw(self.turn, self.stack)
+                        self.stack = 0
                 elif card.type == "0" and SEVEN_ZERO and \
                      len(self.players[player_id].deck) != 0:
                     self.change_direction()
@@ -240,8 +249,15 @@ class Table():
                 elif card.type == "reverse":
                     self.change_direction()
                 elif card.type == "+2":
+                    self.stack += 2
                     self.turn = self.next_turn()
-                    self.draw(self.turn, 2)
+                    if STACKING:
+                        if not self.players[self.turn].has_2():
+                            self.draw(self.turn, self.stack)
+                            self.stack = 0
+                    else:
+                        self.draw(self.turn, self.stack)
+                        self.stack = 0
                 elif card.type == "0" and SEVEN_ZERO and \
                     len(self.players[player_id].deck) != 0:
 

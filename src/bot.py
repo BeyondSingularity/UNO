@@ -49,8 +49,8 @@ class Bot(Client):
         top_card = Card(info["top_card_id"])
         top_card.color = info["top_card_color"]
         players = info["players"]
-        self.cards = info["my_cards"]
         choosing = info["choosing"]
+        self.cards = info["my_cards"]
         if turn != "you":
             self.process_send("uno", 1, 2)
             return

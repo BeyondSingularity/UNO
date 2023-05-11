@@ -75,10 +75,9 @@ class TerminalInterface(Client):
                 end=''
             )
         if event['info']['is_direction_clockwise']:
-            print("The direction is clockwise")
+            print("The direction is clockwise", end="\n\n")
         else:
-            print("The direction is COUNTERclockwise")
-        print()
+            print("The direction is COUNTERclockwise", end="\n\n")
         print("Your cards:")
         self.cards = event['info']['my_cards']
         self.cards.sort()
